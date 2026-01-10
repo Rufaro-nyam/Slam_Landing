@@ -5,7 +5,7 @@ public class Fash : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        LeanTween.scale(gameObject,  new Vector3(3, 3, 3), 0.05f).setOnComplete(scaledown);
+        LeanTween.scale(gameObject,  new Vector3(4, 4, 4), 0.05f).setOnComplete(scaledown);
     }
 
     // Update is called once per frame

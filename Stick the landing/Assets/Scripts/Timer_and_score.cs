@@ -1,6 +1,8 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+//using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
@@ -61,9 +63,17 @@ public class Timer : MonoBehaviour
     public GameObject score_obj;
 
     public AudioSource button_press;
+    // GOAL
+    public Image goal_fill;
+    private int current_goal_fill_amount = 0;
+    private int current_goal_to_get_amount;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        goal_fill.fillAmount = current_goal_fill_amount / 100;
+        current_goal_to_get_amount = 10;
+        current_goal_fill_amount = 0;
+
         float num = Random.Range(0, 2);
         if (num > 0)
         {
@@ -75,7 +85,9 @@ public class Timer : MonoBehaviour
             track1.SetActive(false);
             track2.SetActive(true);
         }
-        print(num);
+        //print(num);
+
+        
     }
 
     // Update is called once per frame
@@ -108,6 +120,13 @@ public class Timer : MonoBehaviour
                 pause();
             }
         }
+
+        if (track1.active)
+        {
+            
+        }
+
+        goal_fill.fillAmount = current_goal_fill_amount/10;
 
     }
 
@@ -156,6 +175,8 @@ public class Timer : MonoBehaviour
         score.enabled = true;
         current_score++;
         start_time += 1.0f;
+        current_goal_fill_amount += 1;
+        goal_fill.fillAmount = current_goal_fill_amount / 100;
     }
 
     public void update_music()
@@ -247,7 +268,8 @@ public class Timer : MonoBehaviour
         Multiple.text = Current_multiplier.ToString();
         update_music();
         LeanTween.scale(score_obj, new Vector3(2f, 2f, 2f), 0.05f).setOnComplete(score_obj_scaledown);
-        //print("multiplier added");
+        print("multiplier added");
+
     }
     public void score_obj_scaledown()
     {
@@ -273,7 +295,7 @@ public class Timer : MonoBehaviour
         music_3.volume = 0;
         music_4.volume = 0;
         music_5.volume = 0;
-        print("music 1");
+        //print("music 1");
         music_1_second.volume = 1;
         music_2_second.volume = 0;
         music_3_second.volume = 0;
