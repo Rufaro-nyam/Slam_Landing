@@ -288,10 +288,10 @@ public class Player : MonoBehaviour
                 Color current_color = background.color;
                 current_color.a = 1f;
                 background.color = current_color;
-                if(ping.pitch < 2)
+                /*if(ping.pitch < 2)
                 {
                     ping.pitch += 0.1f;
-                }
+                }*/
                 platform_exp.pitch = UnityEngine.Random.Range(1f, 1.25f);
                 platform_exp.Play();
                 ping.Play();
@@ -347,7 +347,7 @@ public class Player : MonoBehaviour
 
     public void reset_ping_pitch()
     {
-        ping.pitch = 1f;
+        //ping.pitch = 1f;
     }
 
     

@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine.SceneManagement;
 //using UnityEngine.UIElements;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class Timer : MonoBehaviour
 {
@@ -64,16 +65,19 @@ public class Timer : MonoBehaviour
 
     public AudioSource button_press;
     // GOAL
-    public Image goal_fill;
-    private int current_goal_fill_amount = 0;
-    private int current_goal_to_get_amount;
+    private float maxgoal = 100;
+    public float currentgoal = 0;
+
+    [SerializeField] private Image currentgoalbarfill;
+    [SerializeField] private Image currentgoalbarcopy;
+    public bool can_reduce = true;
+    public AudioSource ping;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        goal_fill.fillAmount = current_goal_fill_amount / 100;
-        current_goal_to_get_amount = 10;
-        current_goal_fill_amount = 0;
-
+        Current_multiplier = 1;
+        currentgoal = 0;
         float num = Random.Range(0, 2);
         if (num > 0)
         {
@@ -93,6 +97,8 @@ public class Timer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        currentgoalbarfill.fillAmount = Mathf.Clamp(currentgoal / maxgoal, 0, 1);
+
         if (started) { start_time -= Time.deltaTime; }
         
         timetext.text = start_time.ToString("0.00");
@@ -125,8 +131,13 @@ public class Timer : MonoBehaviour
         {
             
         }
+        if(Current_multiplier < 1)
+        {
+            Current_multiplier = 1;
+        }
+        print(maxgoal);
 
-        goal_fill.fillAmount = current_goal_fill_amount/10;
+        //goal_fill.fillAmount = current_goal_fill_amount/10;
 
     }
 
@@ -175,76 +186,81 @@ public class Timer : MonoBehaviour
         score.enabled = true;
         current_score++;
         start_time += 1.0f;
-        current_goal_fill_amount += 1;
-        goal_fill.fillAmount = current_goal_fill_amount / 100;
+        currentgoal += 10f;
+        if(currentgoal >= maxgoal)
+        {
+            currentgoal = 0;
+            maxgoal += 50;
+        }
+        ping.pitch = (currentgoal / maxgoal) + 1;
     }
 
     public void update_music()
     {
-        if (Current_multiplier < 10)
+        if (maxgoal == 100)
         {
             music_1.volume = 1;
             music_2.volume = 0;
             music_3.volume = 0;
             music_4.volume = 0;
             music_5.volume = 0;
-            print("music 1");
+            //print("music 1");
             music_1_second.volume = 1;
             music_2_second.volume = 0;
             music_3_second.volume = 0;
             music_4_second.volume = 0;
             music_5_second.volume = 0;
         }
-        else if (Current_multiplier >= 10 && Current_multiplier < 20 ) 
+        else if (maxgoal == 150 ) 
         {
             music_1.volume = 0;
             music_2.volume = 1;
             music_3.volume = 0;
             music_4.volume = 0;
             music_5.volume = 0;
-            print("music 2");
+            //print("music 2");
             music_1_second.volume = 0;
             music_2_second.volume = 1;
             music_3_second.volume = 0;
             music_4_second.volume = 0;
             music_5_second.volume = 0;
         }
-        else if (Current_multiplier >= 20 && Current_multiplier < 30)
+        else if (maxgoal == 200)
         {
             music_1.volume = 0;
             music_2.volume = 0;
             music_3.volume = 1;
             music_4.volume = 0;
             music_5.volume = 0;
-            print("music 3");
+           // print("music 3");
             music_1_second.volume = 0;
             music_2_second.volume = 0;
             music_3_second.volume = 1;
             music_4_second.volume = 0;
             music_5_second.volume = 0;
         }
-        else if (Current_multiplier >= 30 && Current_multiplier < 40)
+        else if (maxgoal == 250)
         {
             music_1.volume = 0;
             music_2.volume = 0;
             music_3.volume = 0;
             music_4.volume = 1;
             music_5.volume = 0;
-            print("music 4");
+            //print("music 4");
             music_1_second.volume = 0;
             music_2_second.volume = 0;
             music_3_second.volume = 0;
             music_4_second.volume = 1;
             music_5_second.volume = 0;
         }
-        else if (Current_multiplier >= 40 )
+        else if (maxgoal== 300 )
         {
             music_1.volume = 0;
             music_2.volume = 0;
             music_3.volume = 0;
             music_4.volume = 0;
             music_5.volume = 1;
-            print("music 5");
+            //print("music 5");
             music_1_second.volume = 0;
             music_2_second.volume = 0;
             music_3_second.volume = 0;
@@ -268,7 +284,7 @@ public class Timer : MonoBehaviour
         Multiple.text = Current_multiplier.ToString();
         update_music();
         LeanTween.scale(score_obj, new Vector3(2f, 2f, 2f), 0.05f).setOnComplete(score_obj_scaledown);
-        print("multiplier added");
+        //print("multiplier added");
 
     }
     public void score_obj_scaledown()
@@ -301,6 +317,9 @@ public class Timer : MonoBehaviour
         music_3_second.volume = 0;
         music_4_second.volume = 0;
         music_5_second.volume = 0;
+
+        currentgoal = 0;
+        maxgoal = 100;
     }
 
     public void close_call()
@@ -310,6 +329,13 @@ public class Timer : MonoBehaviour
         add_multiplier();
         LeanTween.scale(Close_Call, new Vector3(3f, 3f, 3f), 0.05f).setOnComplete(close_call_scaledown);
         close_call_sound.Play();
+        currentgoal += 10f;
+        if (currentgoal >= maxgoal)
+        {
+            currentgoal = 0;
+            maxgoal += 50;
+        }
+        ping.pitch = (currentgoal / maxgoal) + 1;
     }
 
     public void close_call_scaledown()

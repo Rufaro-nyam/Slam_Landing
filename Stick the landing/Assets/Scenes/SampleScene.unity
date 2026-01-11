@@ -14911,7 +14911,11 @@ MonoBehaviour:
   end_score: {fileID: 1305532584}
   score_obj: {fileID: 1870928212}
   button_press: {fileID: 496256180}
-  goal_fill: {fileID: 1017503361}
+  currentgoal: 100
+  currentgoalbarfill: {fileID: 1017503361}
+  currentgoalbarcopy: {fileID: 0}
+  can_reduce: 1
+  ping: {fileID: 361774263}
 --- !u!1 &876145022
 GameObject:
   m_ObjectHideFlags: 0
