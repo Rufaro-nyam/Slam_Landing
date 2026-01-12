@@ -72,12 +72,17 @@ public class Timer : MonoBehaviour
     [SerializeField] private Image currentgoalbarcopy;
     public bool can_reduce = true;
     public AudioSource ping;
+    public TextMeshProUGUI max_goal_text;
+
+    //MOVING PLATFORMS
+    public Level_platform_manager level_manager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Current_multiplier = 1;
         currentgoal = 0;
+        max_goal_text.text = maxgoal.ToString();
         float num = Random.Range(0, 2);
         if (num > 0)
         {
@@ -135,7 +140,7 @@ public class Timer : MonoBehaviour
         {
             Current_multiplier = 1;
         }
-        print(maxgoal);
+       
 
         //goal_fill.fillAmount = current_goal_fill_amount/10;
 
@@ -193,6 +198,7 @@ public class Timer : MonoBehaviour
             maxgoal += 50;
         }
         ping.pitch = (currentgoal / maxgoal) + 1;
+        max_goal_text.text = maxgoal.ToString();
     }
 
     public void update_music()
@@ -238,6 +244,8 @@ public class Timer : MonoBehaviour
             music_3_second.volume = 1;
             music_4_second.volume = 0;
             music_5_second.volume = 0;
+            level_manager.can_spawn_movers = true;
+            level_manager.speed_to_set_to_moving_platforms = 1f;
         }
         else if (maxgoal == 250)
         {
@@ -252,6 +260,7 @@ public class Timer : MonoBehaviour
             music_3_second.volume = 0;
             music_4_second.volume = 1;
             music_5_second.volume = 0;
+            level_manager.speed_to_set_to_moving_platforms = 2.5f;
         }
         else if (maxgoal== 300 )
         {
@@ -266,6 +275,8 @@ public class Timer : MonoBehaviour
             music_3_second.volume = 0;
             music_4_second.volume = 0;
             music_5_second.volume = 1;
+            level_manager.speed_to_set_to_moving_platforms = 5f;
+            
         }
         reset_player_ping_pitch();
     }
@@ -320,6 +331,7 @@ public class Timer : MonoBehaviour
 
         currentgoal = 0;
         maxgoal = 100;
+        max_goal_text.text = maxgoal.ToString();
     }
 
     public void close_call()

@@ -4,7 +4,7 @@ public class Platform : MonoBehaviour
 {
 
     private GameObject plaform_manager;
-    private float speed = 5f;
+    private float speed ;
     public bool is_moving;
     private bool going_right;
 
@@ -18,12 +18,12 @@ public class Platform : MonoBehaviour
         if(is_moving && dir_num == 0)
         {
             going_right = false;
-            speed = -5f;
+            speed = -speed;
         }
         else
         {
             going_right=true;
-            speed = 5f;
+            speed = speed;
         }
         plaform_manager = GameObject.FindGameObjectWithTag("Manager");
         plaform_manager.TryGetComponent<Level_platform_manager>(out Level_platform_manager platformer);
@@ -40,12 +40,12 @@ public class Platform : MonoBehaviour
         if(transform.position.x >= 10.37f)
         {
             going_right = false;
-            speed = -5f;
+            speed = - speed;
         }
         if (transform.position.x <= -10.02f)
         {
             going_right = true;
-            speed = 5f;
+            speed = Mathf.Abs(speed);
         }
 
     }
@@ -93,5 +93,11 @@ public class Platform : MonoBehaviour
         {
             sq.gameObject.SetActive(false);
         }
+    }
+
+    public void set_speed(float given_speed)
+    {
+        speed = given_speed;
+        print(given_speed);
     }
 }

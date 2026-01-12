@@ -14916,6 +14916,8 @@ MonoBehaviour:
   currentgoalbarcopy: {fileID: 0}
   can_reduce: 1
   ping: {fileID: 361774263}
+  max_goal_text: {fileID: 842371213}
+  level_manager: {fileID: 1364409908}
 --- !u!1 &876145022
 GameObject:
   m_ObjectHideFlags: 0
@@ -41097,6 +41099,8 @@ MonoBehaviour:
   moving_platformer: {fileID: 4590490175989671969, guid: 511896980ba70f34b81c3a626fd964bd, type: 3}
   spike_platform: {fileID: 3960134037383811513, guid: f901c0866a4398744900db4b6b9a9096, type: 3}
   player: {fileID: 1457557709}
+  speed_to_set_to_moving_platforms: 0
+  can_spawn_movers: 0
 --- !u!1 &1377206001
 GameObject:
   m_ObjectHideFlags: 0
