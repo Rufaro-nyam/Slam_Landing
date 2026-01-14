@@ -8,10 +8,11 @@ using Unity.VisualScripting;
 public class Timer : MonoBehaviour
 {
     public Player player;
-    public float start_time;
+    private float start_time;
     public TextMeshProUGUI timetext;
     public TextMeshProUGUI score;
     public TextMeshProUGUI real_score_text;
+    public TextMeshProUGUI HIGHSCORE;
     private int real_score;
     private int current_score = 0;
     public TextMeshProUGUI Multiple;
@@ -50,6 +51,9 @@ public class Timer : MonoBehaviour
     public GameObject score_display;
     public GameObject real_score_display;
     public GameObject[] start_blocks;
+
+    public GameObject[] difficulty_buttons;
+    public GameObject[] menu_buttons;
     //TUTORIAL
     public GameObject tutorial;
     //PAUSING
@@ -80,6 +84,7 @@ public class Timer : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        start_time = 1;
         Current_multiplier = 1;
         currentgoal = 0;
         max_goal_text.text = maxgoal.ToString();
@@ -154,6 +159,7 @@ public class Timer : MonoBehaviour
         time_display.SetActive(false);
         score_display.SetActive(false);
         real_score_display.SetActive(false);
+        update_high_score(); 
     }
     public void resume()
     {
@@ -281,6 +287,21 @@ public class Timer : MonoBehaviour
         reset_player_ping_pitch();
     }
 
+    public void update_high_score()
+    {
+        if (PlayerPrefs.HasKey("HIGHSCORE"))
+        {
+            if(real_score > PlayerPrefs.GetInt("HIGHSCORE"))
+            {
+                PlayerPrefs.SetInt("HIGHSCORE", real_score);
+            }
+        }
+        else
+        {
+            PlayerPrefs.SetInt("HIGHSCORE", real_score);
+        }
+        HIGHSCORE.text = PlayerPrefs.GetInt("HIGHSCORE").ToString();
+    }
     public void reset_player_ping_pitch()
     {
         if (Current_multiplier % 10 == 0  )
@@ -358,12 +379,52 @@ public class Timer : MonoBehaviour
 
     public void start_game()
     {
+        foreach (GameObject m in menu_buttons) { m.SetActive(false); }
+        foreach (GameObject d in difficulty_buttons) { d.SetActive(true); }
+        
+
+
+    }
+
+    
+
+    public void start_game_easy()
+    {
+        start_time = 21;
         started = true;
         time_display.SetActive(true);
         score_display.SetActive(true);
         real_score_display.SetActive(true);
         main_menu.SetActive(false);
-        foreach(GameObject s in start_blocks) { s.SetActive(true); }
+        foreach (GameObject s in start_blocks) { s.SetActive(true); }
+        start_txt.SetActive(true);
+        can_pause = true;
+        button_press.Play();
+    }
+
+    public void start_game_mideum()
+    {
+        start_time = 14;
+        started = true;
+        time_display.SetActive(true);
+        score_display.SetActive(true);
+        real_score_display.SetActive(true);
+        main_menu.SetActive(false);
+        foreach (GameObject s in start_blocks) { s.SetActive(true); }
+        start_txt.SetActive(true);
+        can_pause = true;
+        button_press.Play();
+    }
+
+    public void start_game_hard()
+    {
+        start_time = 7;
+        started = true;
+        time_display.SetActive(true);
+        score_display.SetActive(true);
+        real_score_display.SetActive(true);
+        main_menu.SetActive(false);
+        foreach (GameObject s in start_blocks) { s.SetActive(true); }
         start_txt.SetActive(true);
         can_pause = true;
         button_press.Play();
@@ -382,6 +443,8 @@ public class Timer : MonoBehaviour
         button_press.Play();
     }
 
+
+
     public void back_to_menu()
     {
         player.stop_tutorial();
@@ -389,6 +452,9 @@ public class Timer : MonoBehaviour
         tutorial.SetActive(false);
         Time.timeScale = 1f;
         button_press.Play();
+        foreach (GameObject d in difficulty_buttons) { d.SetActive(false); }
+        foreach (GameObject m in menu_buttons) { m.SetActive(true); }
+
     }
 
     public void back_to_menu_fromstart()
