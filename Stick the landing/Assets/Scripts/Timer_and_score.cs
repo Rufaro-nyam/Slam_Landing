@@ -22,6 +22,15 @@ public class Timer : MonoBehaviour
     private float close_timer = 3f;
     public Level_platform_manager manager;
 
+    //DIFFICULTY
+    private bool easy = false;
+    private bool medium = false ;
+    private bool hard = false;
+    public TextMeshProUGUI EASY_HIGHSCORE;
+    public TextMeshProUGUI MID_HIGHSCORE;
+    public TextMeshProUGUI HARD_HIGHSCORE;
+    public TextMeshProUGUI new_high_score;
+
     //MUSIC
     public AudioSource music_1;
     public AudioSource music_2;
@@ -153,7 +162,8 @@ public class Timer : MonoBehaviour
 
     public void display_end()
     {
-        add_multiplier();
+        reset_multiplier();
+       // add_multiplier();
         end_panel.SetActive(true);
         end_score.text = real_score.ToString();
         time_display.SetActive(false);
@@ -289,18 +299,54 @@ public class Timer : MonoBehaviour
 
     public void update_high_score()
     {
-        if (PlayerPrefs.HasKey("HIGHSCORE"))
+        if (easy)
         {
-            if(real_score > PlayerPrefs.GetInt("HIGHSCORE"))
+            if (PlayerPrefs.HasKey("EASY_HIGHSCORE"))
             {
-                PlayerPrefs.SetInt("HIGHSCORE", real_score);
+                if (real_score > PlayerPrefs.GetInt("EASY_HIGHSCORE"))
+                {
+                    PlayerPrefs.SetInt("EASY_HIGHSCORE", real_score);
+                    
+                }
             }
+            else
+            {
+                PlayerPrefs.SetInt("EASY_HIGHSCORE", real_score);
+            }
+            HIGHSCORE.text = PlayerPrefs.GetInt("EASY_HIGHSCORE").ToString();
         }
-        else
+
+        if (medium)
         {
-            PlayerPrefs.SetInt("HIGHSCORE", real_score);
+            if (PlayerPrefs.HasKey("MID_HIGHSCORE"))
+            {
+                if (real_score > PlayerPrefs.GetInt("MID_HIGHSCORE"))
+                {
+                    PlayerPrefs.SetInt("MID_HIGHSCORE", real_score);
+                }
+            }
+            else
+            {
+                PlayerPrefs.SetInt("MID_HIGHSCORE", real_score);
+            }
+            HIGHSCORE.text = PlayerPrefs.GetInt("MID_HIGHSCORE").ToString();
         }
-        HIGHSCORE.text = PlayerPrefs.GetInt("HIGHSCORE").ToString();
+        if (hard)
+        {
+            if (PlayerPrefs.HasKey("HARD_HIGHSCORE"))
+            {
+                if (real_score > PlayerPrefs.GetInt("HARD_HIGHSCORE"))
+                {
+                    PlayerPrefs.SetInt("HARD_HIGHSCORE", real_score);
+                }
+            }
+            else
+            {
+                PlayerPrefs.SetInt("HARD_HIGHSCORE", real_score);
+            }
+            HIGHSCORE.text = PlayerPrefs.GetInt("HARD_HIGHSCORE").ToString();
+        }
+
     }
     public void reset_player_ping_pitch()
     {
@@ -381,6 +427,20 @@ public class Timer : MonoBehaviour
     {
         foreach (GameObject m in menu_buttons) { m.SetActive(false); }
         foreach (GameObject d in difficulty_buttons) { d.SetActive(true); }
+        if (PlayerPrefs.HasKey("EASY_HIGHSCORE"))
+        {
+            EASY_HIGHSCORE.text = PlayerPrefs.GetInt("EASY_HIGHSCORE").ToString();
+        }
+        if (PlayerPrefs.HasKey("MID_HIGHSCORE"))
+        {
+            MID_HIGHSCORE.text = PlayerPrefs.GetInt("MID_HIGHSCORE").ToString();
+        }
+        if (PlayerPrefs.HasKey("HARD_HIGHSCORE"))
+        {
+            HARD_HIGHSCORE.text = PlayerPrefs.GetInt("HARD_HIGHSCORE").ToString();
+        }
+        
+        
         
 
 
@@ -390,6 +450,9 @@ public class Timer : MonoBehaviour
 
     public void start_game_easy()
     {
+        easy = true;
+        hard = false;
+        medium = false;
         start_time = 21;
         started = true;
         time_display.SetActive(true);
@@ -404,6 +467,9 @@ public class Timer : MonoBehaviour
 
     public void start_game_mideum()
     {
+        medium = true;
+        easy = false;
+        hard = false;
         start_time = 14;
         started = true;
         time_display.SetActive(true);
@@ -418,6 +484,9 @@ public class Timer : MonoBehaviour
 
     public void start_game_hard()
     {
+        hard = true;
+        medium = false;
+        easy = false;
         start_time = 7;
         started = true;
         time_display.SetActive(true);
