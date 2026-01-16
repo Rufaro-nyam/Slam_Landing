@@ -63,6 +63,7 @@ public class Timer : MonoBehaviour
 
     public GameObject[] difficulty_buttons;
     public GameObject[] menu_buttons;
+    public GameObject[] customize_ui_buttons;
     //TUTORIAL
     public GameObject tutorial;
     //PAUSING
@@ -534,5 +535,17 @@ public class Timer : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
         button_press.Play();
+    }
+
+    public void customize()
+    {
+        foreach (GameObject m in menu_buttons) { m.SetActive(false); }
+        foreach (GameObject i in customize_ui_buttons) { i.SetActive(true); }
+    }
+
+    public void customise_back()
+    {
+        foreach (GameObject m in customize_ui_buttons) { m.SetActive(false); }
+        foreach (GameObject i in menu_buttons) { i.SetActive(true); }
     }
 }
