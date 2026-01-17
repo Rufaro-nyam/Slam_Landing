@@ -26,9 +26,12 @@ public class Player : MonoBehaviour
     private bool can_gravitate = true;
 
     //GFX
-    public TrailRenderer trail;
+    
     public SpriteRenderer background;
 
+    //TRAIL SWAPPING;
+    private TrailRenderer trail;
+    public TrailRenderer[] trails;
     //CAMSHAKE
     public ShakeData shake_small;
     public ShakeData shake_medium;
@@ -94,8 +97,35 @@ public class Player : MonoBehaviour
     {
        
         rb = GetComponent<Rigidbody2D>();
+        if (PlayerPrefs.HasKey("TRAIL_INT"))
+        {
+
+            update_trail(PlayerPrefs.GetInt("TRAIL_INT"));
+
+        }
+        else
+        {
+            update_trail(0);
+        }
     }
 
+    public void update_trail(int trail_num)
+    {
+        if (PlayerPrefs.HasKey("TRAIL_INT"))
+        {
+
+            PlayerPrefs.SetInt("TRAIL_INT", trail_num);
+
+        }
+        else
+        {
+            PlayerPrefs.SetInt("TRAIL_INT", trail_num);
+        }
+        foreach (TrailRenderer t in trails) { t.gameObject.SetActive(false); }
+        trail = trails[trail_num];
+        trail.gameObject.SetActive(true);
+
+    }
     // Update is called once per frame
 
     

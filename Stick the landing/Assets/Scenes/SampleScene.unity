@@ -274,9 +274,9 @@ RectTransform:
   - {fileID: 1528118732}
   m_Father: {fileID: 1684233926}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25, y: -139.97397}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &385719
@@ -548,7 +548,7 @@ GameObject:
   - component: {fileID: 13901751}
   - component: {fileID: 13901752}
   m_Layer: 6
-  m_Name: Trail RED (2)
+  m_Name: Trail BLUE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -645,8 +645,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0, b: 0, a: 0.6117647}
-      key1: {r: 1, g: 0, b: 0, a: 0}
+      key0: {r: 0, g: 0.7307286, b: 1, a: 0.6117647}
+      key1: {r: 0, g: 0.7371485, b: 1, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -1391,14 +1391,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.8509804}
+  m_Color: {r: 0.6528301, g: 0.6528301, b: 0.6528301, a: 0.8509804}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1320165102700725769, guid: 41e94d217e839d74cbc49302d014188f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1bb69cd91685d9248a58b144052746f3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2138,9 +2138,9 @@ RectTransform:
   - {fileID: 2094467908}
   m_Father: {fileID: 1684233926}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25, y: -369.92194}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &127336732
@@ -4627,9 +4627,9 @@ RectTransform:
   - {fileID: 1913416732}
   m_Father: {fileID: 1684233926}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25, y: -82.486984}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &311610344
@@ -11079,7 +11079,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 456578694}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1457557710}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: update_trail
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &456578694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11205,7 +11217,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 494375289}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1457557710}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: update_trail
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &494375289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16994,9 +17018,9 @@ RectTransform:
   - {fileID: 65999132}
   m_Father: {fileID: 1684233926}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25, y: -25}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &528479226
@@ -26123,9 +26147,9 @@ RectTransform:
   - {fileID: 1842404095}
   m_Father: {fileID: 1684233926}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25, y: -197.46095}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &821626370
@@ -27241,8 +27265,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0, b: 0, a: 0.6117647}
-      key1: {r: 1, g: 0, b: 0, a: 0}
+      key0: {r: 0.97153854, g: 1, b: 0, a: 0.6117647}
+      key1: {r: 1, g: 0.9319992, b: 0, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -39366,7 +39390,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1026393791}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1457557710}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: update_trail
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1026393791
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46812,9 +46848,9 @@ RectTransform:
   - {fileID: 1620629085}
   m_Father: {fileID: 1684233926}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25, y: -254.94794}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1264377857
@@ -52231,9 +52267,9 @@ RectTransform:
   - {fileID: 374496696}
   m_Father: {fileID: 1684233926}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25, y: -542.38293}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1302605302
@@ -58426,12 +58462,12 @@ GameObject:
   - component: {fileID: 1394816225}
   - component: {fileID: 1394816224}
   m_Layer: 5
-  m_Name: Eyes_scroll (2)
+  m_Name: Trails
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1394816223
 RectTransform:
   m_ObjectHideFlags: 0
@@ -58449,8 +58485,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -64, y: -6}
-  m_SizeDelta: {x: 91.8638, y: 229.3358}
+  m_AnchoredPosition: {x: -64, y: -123.19325}
+  m_SizeDelta: {x: 91.8638, y: 463.7222}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1394816224
 MonoBehaviour:
@@ -58827,8 +58863,13 @@ MonoBehaviour:
   movespeed: 10
   force: 25
   ray_origin: {fileID: 1019110420}
-  trail: {fileID: 632904965}
   background: {fileID: 1933801424}
+  trails:
+  - {fileID: 632904965}
+  - {fileID: 860179984}
+  - {fileID: 246340868}
+  - {fileID: 13901752}
+  - {fileID: 1584822635}
   shake_small: {fileID: 11400000, guid: b027dbeed27d77248a79df8e0a60d5ce, type: 2}
   shake_medium: {fileID: 11400000, guid: d5fe2f8309e829448885925a0715ad00, type: 2}
   shake_great: {fileID: 11400000, guid: 720d2bbc88ff38a4b9183dfda2037773, type: 2}
@@ -58981,9 +59022,9 @@ RectTransform:
   - {fileID: 1130270649}
   m_Father: {fileID: 1684233926}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25, y: -312.43494}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1468837980
@@ -64313,14 +64354,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3132075, g: 0.3132075, b: 0.3132075, a: 0.8509804}
+  m_Color: {r: 0.93121433, g: 1, b: 0, a: 0.8509804}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1634102136074110085, guid: 9c40dabfbf4cbd74e9e2525b21213ab3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1bb69cd91685d9248a58b144052746f3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -69811,7 +69852,7 @@ GameObject:
   - component: {fileID: 1584822634}
   - component: {fileID: 1584822635}
   m_Layer: 6
-  m_Name: Trail RED (3)
+  m_Name: Trail GREEN
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -69908,8 +69949,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0, b: 0, a: 0.6117647}
-      key1: {r: 1, g: 0, b: 0, a: 0}
+      key0: {r: 0.1898483, g: 1, b: 0, a: 0.6117647}
+      key1: {r: 0.36536074, g: 1, b: 0, a: 0}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -71016,14 +71057,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3132075, g: 0.3132075, b: 0.3132075, a: 0.8509804}
+  m_Color: {r: 0, g: 1, b: 0.012996674, a: 0.8509804}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -5687517182880132623, guid: 6748e7bdd6c6b2646b7249919a3d6ba4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1bb69cd91685d9248a58b144052746f3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -74216,9 +74257,9 @@ RectTransform:
   - {fileID: 1226800659}
   m_Father: {fileID: 1684233926}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25, y: -484.89594}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1822911477
@@ -74571,14 +74612,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3132075, g: 0.3132075, b: 0.3132075, a: 0.8509804}
+  m_Color: {r: 0, g: 0.7632909, b: 1, a: 0.8509804}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 2398816195957809392, guid: e28120e4057696f409c0c2d20d840b51, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1bb69cd91685d9248a58b144052746f3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -79637,9 +79678,9 @@ RectTransform:
   - {fileID: 1593468828}
   m_Father: {fileID: 1684233926}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 25, y: -427.40894}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1897688134
@@ -79955,14 +79996,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3132075, g: 0.3132075, b: 0.3132075, a: 0.8509804}
+  m_Color: {r: 1, g: 0, b: 0, a: 0.8509804}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -1055314286889319891, guid: 5b183ee32187e55419fd2049ff463b25, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1bb69cd91685d9248a58b144052746f3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -81233,7 +81274,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2025075368}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1457557710}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: update_trail
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2025075368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81439,7 +81492,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2036379372}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1457557710}
+        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+        m_MethodName: update_trail
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2036379372
 MonoBehaviour:
   m_ObjectHideFlags: 0
