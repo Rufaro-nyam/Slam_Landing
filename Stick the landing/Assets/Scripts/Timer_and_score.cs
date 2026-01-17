@@ -216,6 +216,7 @@ public class Timer : MonoBehaviour
         }
         ping.pitch = (currentgoal / maxgoal) + 1;
         max_goal_text.text = maxgoal.ToString();
+        player.update_fire_amount(current_score);
     }
 
     public void update_music()

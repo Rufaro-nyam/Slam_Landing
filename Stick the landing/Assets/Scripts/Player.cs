@@ -32,6 +32,8 @@ public class Player : MonoBehaviour
     //TRAIL SWAPPING;
     private TrailRenderer trail;
     public TrailRenderer[] trails;
+    public ParticleSystem[] particles;
+    private ParticleSystem.EmissionModule emission;
     //CAMSHAKE
     public ShakeData shake_small;
     public ShakeData shake_medium;
@@ -107,6 +109,11 @@ public class Player : MonoBehaviour
         {
             update_trail(0);
         }
+        foreach(ParticleSystem fires in particles)
+        {
+            emission = fires.emission;
+        }
+        update_fire_amount(0);
     }
 
     public void update_trail(int trail_num)
@@ -124,6 +131,8 @@ public class Player : MonoBehaviour
         foreach (TrailRenderer t in trails) { t.gameObject.SetActive(false); }
         trail = trails[trail_num];
         trail.gameObject.SetActive(true);
+        foreach (ParticleSystem t in particles) { t.gameObject.SetActive(false); }
+        particles[trail_num].gameObject.SetActive(true);
 
     }
     // Update is called once per frame
@@ -181,6 +190,7 @@ public class Player : MonoBehaviour
         else if(rb.linearVelocityY < 0f)
         {
             trail.emitting = true;
+
             if ((Input.GetAxis("Horizontal")) < 0)
             {
                 targetrotation = -35f;
@@ -197,6 +207,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetMouseButton(0) && can_gravitate ) 
         {
+
             generated_boost_force += Time.deltaTime;
             wind.pitch += Time.deltaTime;
             wind.volume += Time.deltaTime/1.5f;
@@ -221,6 +232,7 @@ public class Player : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
+
             if (can_boost) 
             {
                 can_play_wind = true;
@@ -387,7 +399,17 @@ public class Player : MonoBehaviour
         pending_freeze_duration = freeze_duration;
     }
 
+    public void update_fire_amount(int amount)
+    {
+        foreach (ParticleSystem particle in particles)
+        {
+            float current_rate = emission.rateOverTime.constant;
+            float newrate = 0;
+            emission.rateOverTime = newrate;
+            print("particles updated");
+        }
 
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
