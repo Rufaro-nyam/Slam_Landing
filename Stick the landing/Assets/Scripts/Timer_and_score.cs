@@ -427,6 +427,7 @@ public class Timer : MonoBehaviour
 
     public void start_game()
     {
+        button_press.Play();
         foreach (GameObject m in menu_buttons) { m.SetActive(false); }
         foreach (GameObject d in difficulty_buttons) { d.SetActive(true); }
         if (PlayerPrefs.HasKey("EASY_HIGHSCORE"))
@@ -542,11 +543,13 @@ public class Timer : MonoBehaviour
     {
         foreach (GameObject m in menu_buttons) { m.SetActive(false); }
         foreach (GameObject i in customize_ui_buttons) { i.SetActive(true); }
+        button_press.Play();
     }
 
     public void customise_back()
     {
         foreach (GameObject m in customize_ui_buttons) { m.SetActive(false); }
         foreach (GameObject i in menu_buttons) { i.SetActive(true); }
+        button_press.Play();
     }
 }

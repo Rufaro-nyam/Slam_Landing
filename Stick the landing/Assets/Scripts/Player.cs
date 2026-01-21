@@ -160,7 +160,7 @@ public class Player : MonoBehaviour
         Color current_color = background.color;
         if(current_color.a > 0f)
         {
-            current_color.a -= Time.deltaTime * 4;
+            current_color.a -= Time.deltaTime * 2;
         }
         background.color = current_color;
         /*Vector3 velocity = rb.linearVelocity;
@@ -328,7 +328,7 @@ public class Player : MonoBehaviour
                 
                 level_manager.spawn_platform();
                 Color current_color = background.color;
-                current_color.a = 1f;
+                current_color.a = 0.5f;
                 background.color = current_color;
                 /*if(ping.pitch < 2)
                 {

@@ -37,6 +37,7 @@ public class Customisation_zoom : MonoBehaviour
     public void exit_customize()
     {
         is_customising = false ;
+        
     }
 
 
