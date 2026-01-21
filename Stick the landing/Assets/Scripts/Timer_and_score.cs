@@ -76,8 +76,9 @@ public class Timer : MonoBehaviour
     public TextMeshProUGUI end_score;
     //JUICE
     public GameObject score_obj;
-
+    public CharacterWobble goal_wobble;
     public AudioSource button_press;
+    public GameObject goal_juice;
     // GOAL
     private float maxgoal = 100;
     public float currentgoal = 0;
@@ -94,6 +95,8 @@ public class Timer : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        goal_wobble.cos_time = currentgoal / 2;
+        goal_wobble.sin_time = currentgoal / 2;
         start_time = 1;
         Current_multiplier = 1;
         currentgoal = 0;
@@ -217,6 +220,9 @@ public class Timer : MonoBehaviour
         ping.pitch = (currentgoal / maxgoal) + 1;
         max_goal_text.text = maxgoal.ToString();
         player.update_fire_amount(current_score);
+        goal_wobble.sin_time = currentgoal / 2;
+        goal_wobble.cos_time = currentgoal / 2;
+        goal_expand();
     }
 
     public void update_music()
@@ -401,6 +407,8 @@ public class Timer : MonoBehaviour
         currentgoal = 0;
         maxgoal = 100;
         max_goal_text.text = maxgoal.ToString();
+        goal_wobble.cos_time = currentgoal / 2;
+        goal_wobble.sin_time = currentgoal / 2;
     }
 
     public void close_call()
@@ -551,5 +559,15 @@ public class Timer : MonoBehaviour
         foreach (GameObject m in customize_ui_buttons) { m.SetActive(false); }
         foreach (GameObject i in menu_buttons) { i.SetActive(true); }
         button_press.Play();
+    }
+
+    private void goal_expand()
+    {
+        LeanTween.scale(goal_juice, new Vector3(2, 2, 2), 0.05f).setOnComplete(goal_reduce);
+    }
+
+    public void goal_reduce()
+    {
+        LeanTween.scale(goal_juice, new Vector3(1, 1, 1), 0.05f);
     }
 }
