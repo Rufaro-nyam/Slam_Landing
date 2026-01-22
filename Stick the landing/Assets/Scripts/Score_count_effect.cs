@@ -12,6 +12,8 @@ public class NumberCounter : MonoBehaviour
     public string NumberFormat = "N0";
     private int _value;
     public AudioSource point_sound;
+    public GameObject score_object;
+    public Timer timer;
     public int Value
     {
         get
@@ -69,6 +71,7 @@ public class NumberCounter : MonoBehaviour
             {
                 previousValue += stepAmount;
                 point_sound.Play();
+                LeanTween.scale(score_object, new Vector3(1.1f, 1.1f, 1.1f), 0.01f).setOnComplete(reset_size);
                 if (previousValue > newValue)
                 {
                     previousValue = newValue;
@@ -94,7 +97,13 @@ public class NumberCounter : MonoBehaviour
                 yield return Wait;
             }
         }
-        Time.timeScale = 0.05f;
+        timer.update_high_score();
+        LeanTween.scale(score_object, new Vector3(1.1f, 1.1f, 1.1f), 0.01f).setOnComplete(reset_size);
         print("check high score");
+    }
+
+    private void reset_size()
+    {
+        LeanTween.scale(score_object, new Vector3(1, 1, 1), 0.01f);
     }
 }

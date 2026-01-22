@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 //using UnityEngine.UIElements;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using FirstGearGames.SmoothCameraShaker;
+using System.Collections;
 
 public class Timer : MonoBehaviour
 {
@@ -80,6 +82,9 @@ public class Timer : MonoBehaviour
     public CharacterWobble goal_wobble;
     public AudioSource button_press;
     public GameObject goal_juice;
+    public GameObject highscore_gfx;
+    public CameraShaker cam_shake;
+    public ShakeData shake_great;
     // GOAL
     private float maxgoal = 100;
     public float currentgoal = 0;
@@ -176,8 +181,10 @@ public class Timer : MonoBehaviour
         time_display.SetActive(false);
         score_display.SetActive(false);
         real_score_display.SetActive(false);
-        update_high_score(); 
+        //update_high_score(); 
     }
+
+
     public void resume()
     {
         pause_ui.SetActive(false);
@@ -317,12 +324,16 @@ public class Timer : MonoBehaviour
                 if (real_score > PlayerPrefs.GetInt("EASY_HIGHSCORE"))
                 {
                     PlayerPrefs.SetInt("EASY_HIGHSCORE", real_score);
-                    
+                    new_high_score_gfx();
+                    StartCoroutine(slow_game());
+
                 }
             }
             else
             {
                 PlayerPrefs.SetInt("EASY_HIGHSCORE", real_score);
+                new_high_score_gfx();
+                StartCoroutine(slow_game());
             }
             HIGHSCORE.text = PlayerPrefs.GetInt("EASY_HIGHSCORE").ToString();
         }
@@ -334,11 +345,16 @@ public class Timer : MonoBehaviour
                 if (real_score > PlayerPrefs.GetInt("MID_HIGHSCORE"))
                 {
                     PlayerPrefs.SetInt("MID_HIGHSCORE", real_score);
+                    new_high_score_gfx();
+                    StartCoroutine(slow_game());
                 }
             }
             else
             {
                 PlayerPrefs.SetInt("MID_HIGHSCORE", real_score);
+                new_high_score_gfx();
+                StartCoroutine(slow_game());
+
             }
             HIGHSCORE.text = PlayerPrefs.GetInt("MID_HIGHSCORE").ToString();
         }
@@ -349,15 +365,38 @@ public class Timer : MonoBehaviour
                 if (real_score > PlayerPrefs.GetInt("HARD_HIGHSCORE"))
                 {
                     PlayerPrefs.SetInt("HARD_HIGHSCORE", real_score);
+                    new_high_score_gfx();
+                    StartCoroutine(slow_game());
                 }
             }
             else
             {
                 PlayerPrefs.SetInt("HARD_HIGHSCORE", real_score);
+                new_high_score_gfx();
+                StartCoroutine(slow_game());
             }
             HIGHSCORE.text = PlayerPrefs.GetInt("HARD_HIGHSCORE").ToString();
         }
+        StartCoroutine(slow_game());
 
+    }
+
+    public void new_high_score_gfx()
+    {
+        highscore_gfx.SetActive(true);
+        LeanTween.scale(highscore_gfx, new Vector3(1, 1, 1), 0.001f).setOnComplete(new_high_score_shake);
+        
+    }
+
+    public IEnumerator slow_game()
+    {
+        yield return new WaitForSeconds(0.7f);
+        Time.timeScale = 0.05f;
+    }
+
+    public void new_high_score_shake()
+    {
+        CameraShakerHandler.Shake(shake_great);
     }
     public void reset_player_ping_pitch()
     {
@@ -366,6 +405,8 @@ public class Timer : MonoBehaviour
             player.reset_ping_pitch();
         }
     }
+
+
     public void add_multiplier()
     {
         multiplier.SetActive(true);
