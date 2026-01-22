@@ -4,6 +4,7 @@ public class Customisation : MonoBehaviour
 {
     public GameObject[] eyes;
     public GameObject[] mouths;
+    public AudioSource button_press;
 
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -38,8 +39,15 @@ public class Customisation : MonoBehaviour
         
     }
 
+    public void play_button_sound()
+    {
+        
+    }
+
     public void update_eyes(int eye_num)
     {
+        button_press.Play();
+        button_press.Play();
         foreach (GameObject go in eyes) 
         {
             go.SetActive(false);
@@ -62,6 +70,7 @@ public class Customisation : MonoBehaviour
 
     public void update_mouth(int mouth_num)
     {
+        button_press.Play();
         foreach (GameObject go in mouths)
         {
             go.SetActive(false);

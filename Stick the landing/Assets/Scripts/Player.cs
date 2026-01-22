@@ -55,6 +55,7 @@ public class Player : MonoBehaviour
     public AudioSource ping;
     public AudioSource wind;
     public AudioSource platform_exp;
+    public AudioSource button_press;
     private bool can_play_wind = true;
 
     //TARGETING
@@ -133,6 +134,7 @@ public class Player : MonoBehaviour
         trail.gameObject.SetActive(true);
         foreach (ParticleSystem t in particles) { t.gameObject.SetActive(false); }
         particles[trail_num].gameObject.SetActive(true);
+        button_press.Play();
 
     }
     // Update is called once per frame

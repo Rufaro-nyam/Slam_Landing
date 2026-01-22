@@ -74,6 +74,7 @@ public class Timer : MonoBehaviour
     private bool can_display_end = true;
     public GameObject end_panel;
     public TextMeshProUGUI end_score;
+    public NumberCounter num_count;
     //JUICE
     public GameObject score_obj;
     public CharacterWobble goal_wobble;
@@ -169,7 +170,9 @@ public class Timer : MonoBehaviour
         reset_multiplier();
        // add_multiplier();
         end_panel.SetActive(true);
-        end_score.text = real_score.ToString();
+        //end_score.text = real_score.ToString();
+        num_count.UpdateText(real_score);
+        print(real_score);
         time_display.SetActive(false);
         score_display.SetActive(false);
         real_score_display.SetActive(false);
@@ -200,7 +203,7 @@ public class Timer : MonoBehaviour
     {
         if (start_time <= 0)
         {
-            Time.timeScale = 0.05f;
+            //Time.timeScale = 0.05f;
             if (can_display_end) { display_end(); can_display_end = false; }
             
         }
