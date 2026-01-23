@@ -51,6 +51,7 @@ public class NumberCounter : MonoBehaviour
 
     private IEnumerator CountText(int newValue)
     {
+        timer.display_high_score();
         WaitForSeconds Wait = new WaitForSeconds(1f / CountFPS);
         int previousValue = _value;
         int stepAmount;

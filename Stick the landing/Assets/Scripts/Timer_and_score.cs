@@ -85,6 +85,8 @@ public class Timer : MonoBehaviour
     public GameObject highscore_gfx;
     public CameraShaker cam_shake;
     public ShakeData shake_great;
+    public ParticleSystem confetti;
+    public Running_out_of_time running_Out_Of_Time;
     // GOAL
     private float maxgoal = 100;
     public float currentgoal = 0;
@@ -120,7 +122,56 @@ public class Timer : MonoBehaviour
         }
         //print(num);
 
+        //FOR PLAYTEST PUPOSES
+
+            if (PlayerPrefs.HasKey("EASY_HIGHSCORE"))
+            {
+
+                    PlayerPrefs.SetInt("EASY_HIGHSCORE", 0);
+
+
+
+            }
+            else
+            {
+                PlayerPrefs.SetInt("EASY_HIGHSCORE", 0);
+
+            }
+            HIGHSCORE.text = PlayerPrefs.GetInt("EASY_HIGHSCORE").ToString();
         
+
+
+            if (PlayerPrefs.HasKey("MID_HIGHSCORE"))
+            {
+
+
+                    PlayerPrefs.SetInt("MID_HIGHSCORE", 0);
+
+            }
+            else
+            {
+                PlayerPrefs.SetInt("MID_HIGHSCORE", 0);
+
+
+            
+            HIGHSCORE.text = PlayerPrefs.GetInt("MID_HIGHSCORE").ToString();
+        }
+
+            if (PlayerPrefs.HasKey("HARD_HIGHSCORE"))
+            {
+
+                    PlayerPrefs.SetInt("HARD_HIGHSCORE", 0);
+
+                
+            }
+            else
+            {
+                PlayerPrefs.SetInt("HARD_HIGHSCORE", 0);
+
+            }
+            HIGHSCORE.text = PlayerPrefs.GetInt("HARD_HIGHSCORE").ToString();
+        
+
     }
 
     // Update is called once per frame
@@ -213,6 +264,14 @@ public class Timer : MonoBehaviour
             //Time.timeScale = 0.05f;
             if (can_display_end) { display_end(); can_display_end = false; }
             
+        }
+        if(start_time < 5)
+        {
+            running_Out_Of_Time.is_warning = true;
+        }
+        else
+        {
+            running_Out_Of_Time.is_warning = false;
         }
     }
 
@@ -315,6 +374,53 @@ public class Timer : MonoBehaviour
         reset_player_ping_pitch();
     }
 
+    public void display_high_score()
+    {
+        if (easy)
+        {
+            if (PlayerPrefs.HasKey("EASY_HIGHSCORE"))
+            {
+
+            }
+            else
+            {
+                PlayerPrefs.SetInt("EASY_HIGHSCORE", real_score);
+
+            }
+            HIGHSCORE.text = PlayerPrefs.GetInt("EASY_HIGHSCORE").ToString();
+        }
+
+        if (medium)
+        {
+            if (PlayerPrefs.HasKey("MID_HIGHSCORE"))
+            {
+
+            }
+            else
+            {
+                PlayerPrefs.SetInt("MID_HIGHSCORE", real_score);
+
+
+            }
+            HIGHSCORE.text = PlayerPrefs.GetInt("MID_HIGHSCORE").ToString();
+        }
+        if (hard)
+        {
+            if (PlayerPrefs.HasKey("HARD_HIGHSCORE"))
+            {
+
+            }
+            else
+            {
+                PlayerPrefs.SetInt("HARD_HIGHSCORE", real_score);
+
+            }
+            HIGHSCORE.text = PlayerPrefs.GetInt("HARD_HIGHSCORE").ToString();
+        }
+        //StartCoroutine(slow_game());
+
+    }
+
     public void update_high_score()
     {
         if (easy)
@@ -384,6 +490,7 @@ public class Timer : MonoBehaviour
     public void new_high_score_gfx()
     {
         highscore_gfx.SetActive(true);
+        confetti.Play();
         LeanTween.scale(highscore_gfx, new Vector3(1, 1, 1), 0.001f).setOnComplete(new_high_score_shake);
         
     }
