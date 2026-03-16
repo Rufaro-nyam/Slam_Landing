@@ -94,6 +94,8 @@ public class Player : MonoBehaviour
 
     public Camera maincam;
     public GameObject flash;
+
+    bool coyote_slam_grace = false;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -218,7 +220,7 @@ public class Player : MonoBehaviour
             targeter.transform.Rotate(0, 0, 3.0f);
 
             rb.gravityScale += 8f * Time.deltaTime;
-            ray_distance = 2f;
+            //ray_distance = 0.5f;
             is_gravitating = true;
 
             maincam.fieldOfView = Mathf.Lerp(maincam.fieldOfView, 108, 0.0005f);
@@ -234,39 +236,60 @@ public class Player : MonoBehaviour
 
         if (Input.GetMouseButtonUp(0))
         {
+            RaycastHit2D hit2D = Physics2D.Raycast(ray_origin.position, Vector2.down, ray_distance);
+            Debug.DrawRay(ray_origin.position, Vector2.down * ray_distance, Color.red);
+            if (hit2D.collider != null)
+            {
+                
+                
+                if (hit2D.collider.tag == "Manager" )
+                {
 
+                    rb.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
+                    can_gravitate = false;
+                    wind.Stop();
+                    wind.volume = 0f;
+                }
+
+            }
+            if (coyote_slam_grace)
+            {
+                rb.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
+                //print("bounce");
+            }
+            wind.pitch = 1;
             if (can_boost) 
             {
                 can_play_wind = true;
-
-                rb.gravityScale = 0f;
-                rb.AddForce(Vector2.up * mpd_boost_force , ForceMode2D.Impulse);
+                
+                //rb.gravityScale = 0f;
+                //rb.AddForce(Vector2.up * mpd_boost_force , ForceMode2D.Impulse);
                 //print(mpd_boost_force);
 
                 generated_boost_force = 0;
                 //shake.Magnitude = mpd_boost_force / 10;
                 if (mpd_boost_force < 3f) 
                 {
-                    CameraShakerHandler.Shake(shake_small);
-                    Instantiate(explosion_small, particle_spawn_point.position, Quaternion.identity);
+                    //CameraShakerHandler.Shake(shake_small);
+                    //Instantiate(explosion_small, particle_spawn_point.position, Quaternion.identity);
                 }
                 else if (mpd_boost_force < 6f && mpd_boost_force > 3f)
                 {
-                    CameraShakerHandler.Shake(shake_medium);
-                    Instantiate(explosion_medium, particle_spawn_point.position, Quaternion.identity);
-                    boom1.pitch = UnityEngine.Random.Range(1f, 1.5f);
-                    boom1.Play();
-                    can_destroy_platform = true;
+                    //CameraShakerHandler.Shake(shake_medium);
+                    //Instantiate(explosion_medium, particle_spawn_point.position, Quaternion.identity);
+                    //boom1.pitch = UnityEngine.Random.Range(1f, 1.5f);
+                    //boom1.Play();
+                    //can_destroy_platform = true;
                 }
                 else if(mpd_boost_force > 6f) 
                 {
-                    CameraShakerHandler.Shake(shake_great);
-                    Instantiate(explosion_heavy,particle_spawn_point.position, Quaternion.identity);
-                    boom1.pitch = UnityEngine.Random.Range(1f, 1.5f);
-                    boom1.Play();
-                    explode();
+                    //CameraShakerHandler.Shake(shake_great);
+                    //Instantiate(explosion_heavy,particle_spawn_point.position, Quaternion.identity);
+                    //boom1.pitch = UnityEngine.Random.Range(1f, 1.5f);
+                    //boom1.Play();
+                    //explode();
 
-                    can_destroy_platform = true;
+                    //can_destroy_platform = true;
                 }
                 
             }
@@ -301,7 +324,13 @@ public class Player : MonoBehaviour
 
     }
 
-
+    public void force_jump()
+    {
+        rb.AddForce(Vector2.up * 1, ForceMode2D.Impulse);
+        can_gravitate = false;
+        wind.Stop();
+        wind.volume = 0f;
+    }
     private void FixedUpdate()
     {
         if (slowmo_tut)
@@ -321,8 +350,14 @@ public class Player : MonoBehaviour
         if (hit2D.collider != null) 
         {
             can_boost = true;
-            if (hit2D.collider.tag == "Platform" && can_destroy_platform) 
+            if (hit2D.collider.tag == "Platform")
             {
+                print(wind.pitch);
+            }
+            if (hit2D.collider.tag == "Platform" && wind.pitch > 1.5f) 
+            {
+                StartCoroutine(coyote_slam_bounce());
+                //print(rb.linearVelocityY);
                 LeanTween.scale(hit2D.collider.gameObject, new Vector3(3, 3, 3), 0.1f);
                 
                 //print("i can destroy this");
@@ -345,6 +380,7 @@ public class Player : MonoBehaviour
                 Instantiate(flash, hit2D.transform.position, Quaternion.identity);
                 explode();
                 Destroy(hit2D.collider.gameObject);
+                
                 if (combo_fill.fillAmount < 0.15f && has_scored_before)
                 {
                     Timer.close_call();
@@ -389,6 +425,13 @@ public class Player : MonoBehaviour
 
     }
 
+    IEnumerator coyote_slam_bounce()
+    {
+        coyote_slam_grace = true;
+        yield return new WaitForSeconds(0.4f);
+        coyote_slam_grace = false;
+
+    }
     public void reset_ping_pitch()
     {
         //ping.pitch = 1f;
@@ -408,19 +451,23 @@ public class Player : MonoBehaviour
             float current_rate = emission.rateOverTime.constant;
             float newrate = 0;
             emission.rateOverTime = newrate;
-            print("particles updated");
+           // print("particles updated");
         }
 
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        float mpd_boost_force = generated_boost_force * 13;
-        rb.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
-        //print("bounce");
-        can_gravitate = false;
-        wind.Stop();
-        wind.volume = 0f;
+        if (!is_gravitating)
+        {
+            float mpd_boost_force = generated_boost_force * 13;
+            rb.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
+            //print("bounce");
+            can_gravitate = false;
+            wind.Stop();
+            wind.volume = 0f;
+        }
+        
 
 
         /*if (collision.transform.tag == "Manager"  && grace_bounces > 1)

@@ -117,14 +117,14 @@ public class Timer : MonoBehaviour
         }
         else
         {
-            track1.SetActive(false);
-            track2.SetActive(true);
+            track1.SetActive(true);
+            track2.SetActive(false);
         }
         //print(num);
 
         //FOR PLAYTEST PUPOSES
 
-            if (PlayerPrefs.HasKey("EASY_HIGHSCORE"))
+            /*if (PlayerPrefs.HasKey("EASY_HIGHSCORE"))
             {
 
                     PlayerPrefs.SetInt("EASY_HIGHSCORE", 0);
@@ -169,7 +169,7 @@ public class Timer : MonoBehaviour
                 PlayerPrefs.SetInt("HARD_HIGHSCORE", 0);
 
             }
-            HIGHSCORE.text = PlayerPrefs.GetInt("HARD_HIGHSCORE").ToString();
+            HIGHSCORE.text = PlayerPrefs.GetInt("HARD_HIGHSCORE").ToString();*/
         
 
     }
@@ -417,7 +417,7 @@ public class Timer : MonoBehaviour
             }
             HIGHSCORE.text = PlayerPrefs.GetInt("HARD_HIGHSCORE").ToString();
         }
-        //StartCoroutine(slow_game());
+
 
     }
 
@@ -489,6 +489,18 @@ public class Timer : MonoBehaviour
 
     public void new_high_score_gfx()
     {
+        if (track1)
+        {
+            music_5.volume = 1;
+            music_5.Play();
+        }
+        else 
+        {
+            music_5_second.volume = 1;
+            music_5_second.Play();  
+        }
+
+
         highscore_gfx.SetActive(true);
         confetti.Play();
         LeanTween.scale(highscore_gfx, new Vector3(1, 1, 1), 0.001f).setOnComplete(new_high_score_shake);

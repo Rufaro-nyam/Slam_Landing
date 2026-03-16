@@ -13,7 +13,7 @@ public class Platform : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        is_moving = true;
         float dir_num = Random.Range(0, 2);
         if(is_moving && dir_num == 0)
         {

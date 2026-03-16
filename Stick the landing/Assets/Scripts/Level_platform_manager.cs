@@ -9,6 +9,8 @@ public class Level_platform_manager : MonoBehaviour
     private int platforms_destroyed;
     public float speed_to_set_to_moving_platforms;
     public bool can_spawn_movers = false;
+    bool player_on_ground = false;
+    public Player player_script;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -22,6 +24,14 @@ public class Level_platform_manager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             spawn_spiker();
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (player_on_ground)
+            {
+                print("force_player_up");
+                player_script.force_jump();
+            }
         }
     }
 
@@ -76,5 +86,23 @@ public class Level_platform_manager : MonoBehaviour
     {
         platforms_destroyed = 0;
         can_spawn_movers = false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            print("player enter");
+            player_on_ground = true;
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            print("player exit");
+            player_on_ground = false;
+        }
     }
 }
