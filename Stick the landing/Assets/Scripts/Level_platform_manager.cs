@@ -29,7 +29,7 @@ public class Level_platform_manager : MonoBehaviour
         {
             if (player_on_ground)
             {
-                print("force_player_up");
+               // print("force_player_up");
                 player_script.force_jump();
             }
         }
@@ -92,8 +92,9 @@ public class Level_platform_manager : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
-            print("player enter");
+            //print("player enter");
             player_on_ground = true;
+            player_script.measure_ground_slam();
         }
     }
 
@@ -101,7 +102,7 @@ public class Level_platform_manager : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            print("player exit");
+            //print("player exit");
             player_on_ground = false;
         }
     }

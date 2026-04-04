@@ -96,6 +96,8 @@ public class Player : MonoBehaviour
     public GameObject flash;
 
     bool coyote_slam_grace = false;
+    bool can_launch = true;
+    float current_velocity_hold;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -144,6 +146,15 @@ public class Player : MonoBehaviour
     
     void Update()
     {
+        print(current_velocity_hold);
+        if(rb.linearVelocity.magnitude > 0)
+        {
+            if(rb.linearVelocity.magnitude > current_velocity_hold)
+            {
+                current_velocity_hold = rb.linearVelocity.magnitude;
+            }
+        }
+
         if (combo_fill.fillAmount > 0) { combo_fill.fillAmount -= Time.deltaTime/3; }
         if(combo_fill.fillAmount == 0) { Timer.reset_multiplier(); has_scored_before = false; }
         if(pending_freeze_duration > 0 && is_frozen == false)
@@ -254,45 +265,16 @@ public class Player : MonoBehaviour
             }
             if (coyote_slam_grace)
             {
-                rb.AddForce(Vector2.up * jumpforce, ForceMode2D.Impulse);
+                if (can_launch) 
+                {
+                    rb.AddForce(Vector2.up * (jumpforce * 1.7f), ForceMode2D.Impulse);
+                    StartCoroutine(launchable());
+                }
+                
                 //print("bounce");
             }
             wind.pitch = 1;
-            if (can_boost) 
-            {
-                can_play_wind = true;
-                
-                //rb.gravityScale = 0f;
-                //rb.AddForce(Vector2.up * mpd_boost_force , ForceMode2D.Impulse);
-                //print(mpd_boost_force);
 
-                generated_boost_force = 0;
-                //shake.Magnitude = mpd_boost_force / 10;
-                if (mpd_boost_force < 3f) 
-                {
-                    //CameraShakerHandler.Shake(shake_small);
-                    //Instantiate(explosion_small, particle_spawn_point.position, Quaternion.identity);
-                }
-                else if (mpd_boost_force < 6f && mpd_boost_force > 3f)
-                {
-                    //CameraShakerHandler.Shake(shake_medium);
-                    //Instantiate(explosion_medium, particle_spawn_point.position, Quaternion.identity);
-                    //boom1.pitch = UnityEngine.Random.Range(1f, 1.5f);
-                    //boom1.Play();
-                    //can_destroy_platform = true;
-                }
-                else if(mpd_boost_force > 6f) 
-                {
-                    //CameraShakerHandler.Shake(shake_great);
-                    //Instantiate(explosion_heavy,particle_spawn_point.position, Quaternion.identity);
-                    //boom1.pitch = UnityEngine.Random.Range(1f, 1.5f);
-                    //boom1.Play();
-                    //explode();
-
-                    //can_destroy_platform = true;
-                }
-                
-            }
         }
 
     }
@@ -354,7 +336,7 @@ public class Player : MonoBehaviour
             {
                 print(wind.pitch);
             }
-            if (hit2D.collider.tag == "Platform" && wind.pitch > 1.5f) 
+            if (hit2D.collider.tag == "Platform" && current_velocity_hold >= 14) 
             {
                 StartCoroutine(coyote_slam_bounce());
                 //print(rb.linearVelocityY);
@@ -397,7 +379,49 @@ public class Player : MonoBehaviour
                 {
                     Time.timeScale = 0.25f;
                 }
-                
+
+                ///////////////////////////////////////////////////////////
+                float mpd_boost_force = generated_boost_force * 13;
+                mpd_boost_force = Mathf.Clamp(mpd_boost_force, 0, 10);
+                if (can_boost)
+                {
+                    can_play_wind = true;
+
+                    //rb.gravityScale = 0f;
+                    //rb.AddForce(Vector2.up * mpd_boost_force , ForceMode2D.Impulse);
+                    //print(mpd_boost_force);
+
+                    generated_boost_force = 0;
+                    //shake.Magnitude = mpd_boost_force / 10;
+                    if (mpd_boost_force < 3f)
+                    {
+                        CameraShakerHandler.Shake(shake_small);
+                        Instantiate(explosion_small, particle_spawn_point.position, Quaternion.identity);
+                    }
+                    else if (mpd_boost_force < 6f && mpd_boost_force > 3f)
+                    {
+                        CameraShakerHandler.Shake(shake_medium);
+                        Instantiate(explosion_medium, particle_spawn_point.position, Quaternion.identity);
+                        boom1.pitch = UnityEngine.Random.Range(1f, 1.5f);
+                        boom1.Play();
+                        can_destroy_platform = true;
+                    }
+                    else if (mpd_boost_force > 6f)
+                    {
+                        CameraShakerHandler.Shake(shake_great);
+                        Instantiate(explosion_heavy, particle_spawn_point.position, Quaternion.identity);
+                        boom1.pitch = UnityEngine.Random.Range(1f, 1.5f);
+                        boom1.Play();
+                        explode();
+
+                        can_destroy_platform = true;
+                    }
+                    current_velocity_hold = 0;
+
+
+                }
+                /////////////////////////////
+
                 //combo_fill.color = Random.ColorHSV(0f, 1f, 1f, 0.5f, 0.5f, 1f);
                 //combo_fill.color.a = new float 0.5f;
                 //rb.AddForce(Vector2.up * 7, ForceMode2D.Impulse);
@@ -526,5 +550,56 @@ public class Player : MonoBehaviour
         transform.position = tut_pos.position;
         slowmo_tut = false;
         Time.timeScale = 1f;
+    }
+
+    IEnumerator launchable()
+    {
+        can_launch = false;
+        yield return new WaitForSeconds(0.3f);
+        can_launch = true;
+
+    }
+    public void measure_ground_slam()
+    {
+
+        print( "collision magnitude against floor was" + rb.linearVelocity.magnitude);
+        float mpd_boost_force = generated_boost_force * 13;
+        mpd_boost_force = Mathf.Clamp(mpd_boost_force, 0, 10);
+        if (can_boost)
+        {
+            can_play_wind = true;
+
+            //rb.gravityScale = 0f;
+            //rb.AddForce(Vector2.up * mpd_boost_force , ForceMode2D.Impulse);
+            //print(mpd_boost_force);
+
+            generated_boost_force = 0;
+            //shake.Magnitude = mpd_boost_force / 10;
+            if (mpd_boost_force < 3f)
+            {
+                CameraShakerHandler.Shake(shake_small);
+                Instantiate(explosion_small, particle_spawn_point.position, Quaternion.identity);
+            }
+            else if (mpd_boost_force < 6f && mpd_boost_force > 3f)
+            {
+                CameraShakerHandler.Shake(shake_medium);
+                Instantiate(explosion_medium, particle_spawn_point.position, Quaternion.identity);
+                boom1.pitch = UnityEngine.Random.Range(1f, 1.5f);
+                boom1.Play();
+                can_destroy_platform = true;
+            }
+            else if (mpd_boost_force > 6f)
+            {
+                CameraShakerHandler.Shake(shake_great);
+                Instantiate(explosion_heavy, particle_spawn_point.position, Quaternion.identity);
+                boom1.pitch = UnityEngine.Random.Range(1f, 1.5f);
+                boom1.Play();
+                explode();
+
+                can_destroy_platform = true;
+            }
+            current_velocity_hold = 0;
+
+        }
     }
 }
