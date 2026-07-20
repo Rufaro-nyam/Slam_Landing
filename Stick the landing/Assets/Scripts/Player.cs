@@ -146,7 +146,7 @@ public class Player : MonoBehaviour
     
     void Update()
     {
-        print(current_velocity_hold);
+        
         if(rb.linearVelocity.magnitude > 0)
         {
             if(rb.linearVelocity.magnitude > current_velocity_hold)
@@ -335,10 +335,12 @@ public class Player : MonoBehaviour
             if (hit2D.collider.tag == "Platform")
             {
                 print(wind.pitch);
+                //print(current_velocity_hold);
             }
-            if (hit2D.collider.tag == "Platform" && current_velocity_hold >= 14) 
+            if (hit2D.collider.tag == "Platform" && current_velocity_hold >= 14 ) 
             {
                 StartCoroutine(coyote_slam_bounce());
+                StartCoroutine(stop_gravitation());
                 //print(rb.linearVelocityY);
                 LeanTween.scale(hit2D.collider.gameObject, new Vector3(3, 3, 3), 0.1f);
                 
@@ -449,10 +451,17 @@ public class Player : MonoBehaviour
 
     }
 
+    IEnumerator stop_gravitation()
+    {
+        can_gravitate = false;
+        yield return new WaitForSeconds(1f);
+        can_gravitate = true;
+    }
+
     IEnumerator coyote_slam_bounce()
     {
         coyote_slam_grace = true;
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.1f);
         coyote_slam_grace = false;
 
     }
