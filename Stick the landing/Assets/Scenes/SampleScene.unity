@@ -35723,6 +35723,7 @@ MonoBehaviour:
   cam_shake: {fileID: 0}
   shake_great: {fileID: 11400000, guid: 720d2bbc88ff38a4b9183dfda2037773, type: 2}
   confetti: {fileID: 193957869}
+  running_Out_Of_Time: {fileID: 0}
   currentgoal: 100
   currentgoalbarfill: {fileID: 1017503361}
   currentgoalbarcopy: {fileID: 0}
@@ -64081,9 +64082,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpforce: 5
   movespeed: 10
-  force: 25
+  minSlamForceToDestroy: 7
+  platformDestroyBoostForce: 14
+  earlyReleaseBuffer: 0.15
+  lateReleaseWindow: 0.12
   ray_origin: {fileID: 1019110420}
+  is_gravitating: 0
   background: {fileID: 1933801424}
+  force: 25
   trails:
   - {fileID: 632904965}
   - {fileID: 860179984}
@@ -64103,8 +64109,6 @@ MonoBehaviour:
   explosion_heavy: {fileID: 7131890350078743792, guid: 8d0628b32f58b984b9b1f5dfef065094, type: 3}
   explosion_medium: {fileID: 7131890350078743792, guid: b7667d0a27a7a624cbd8c598aa410a27, type: 3}
   explosion_small: {fileID: 7131890350078743792, guid: 987556891d88a8842aa340b20d4ade0a, type: 3}
-  stretch: 0.02
-  squash_parent: {fileID: 1457557709}
   bounce: {fileID: 1785939384}
   boom1: {fileID: 1795078644}
   boom2: {fileID: 1968557884}
@@ -64122,7 +64126,6 @@ MonoBehaviour:
   layertohit:
     serializedVersion: 2
     m_Bits: 8
-  is_gravitating: 0
   in_tutorial: 0
   tut_pos: {fileID: 560853327}
   slowmo_tut: 0

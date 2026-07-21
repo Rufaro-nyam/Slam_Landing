@@ -509,7 +509,7 @@ public class Timer : MonoBehaviour
     {
         if (Current_multiplier % 10 == 0  )
         {
-            player.reset_ping_pitch();
+            //player.reset_ping_pitch();
         }
     }
 
@@ -530,7 +530,7 @@ public class Timer : MonoBehaviour
     }
     public void reset_multiplier()
     {
-        player.reset_ping_pitch();
+       // player.reset_ping_pitch();
         if (Current_multiplier > 1)
         {
             s_b_1.Play();
